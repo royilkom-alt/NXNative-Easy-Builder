@@ -40,6 +40,8 @@ Created by **iSolution**. Based on [**NXNative**][nxnative] by **seedds** and [*
 
 </div>
 
+
+
 ## 📱 iPhone & iPad Compatibility
 
 ![iPhone iOS 26 or later](https://img.shields.io/badge/iPhone-iOS%2026%2B-007AFF?style=for-the-badge&logo=apple&logoColor=white&labelColor=161B22)
