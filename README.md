@@ -40,6 +40,22 @@ Created by **iSolution**. Based on [**NXNative**][nxnative] by **seedds** and [*
 
 </div>
 
+## 📱 Minimum iPhone & iPad Specs
+
+![iPhone A17 Pro or newer](https://img.shields.io/badge/iPhone-A17%20Pro%2B-007AFF?style=for-the-badge&logo=apple&logoColor=white&labelColor=161B22)
+![iPad M1 or newer](https://img.shields.io/badge/iPad-M1%2B-7C3AED?style=for-the-badge&logo=apple&logoColor=white&labelColor=161B22)
+
+| Device | Minimum OS | Standard chipset requirement | Example models |
+| :--- | :--- | :--- | :--- |
+| **iPhone** | iOS 26 or later | **A17 Pro or newer** | iPhone 15 Pro / 15 Pro Max |
+| **iPad** | iPadOS 26 or later | **M1 or newer** | iPad Air (M1) / iPad Pro (M1) |
+
+Free storage varies by game. Allow room for both the IPA and any separate game data.
+
+> [!NOTE]
+> **A16 iPad support depends on the game.** Select Windows-built IPAs ran on an **A16 iPad with 6 GB RAM** using a CPU texture fallback. This can increase memory use and loading times. [Device test results](https://github.com/zenvyzenshiro/NXNativeWindows#games-on-nxnative-for-windows)
+
+[Upstream device requirements](https://github.com/seedds/nxnative#requirements)
 
 ## Successfully ported to IPA
 
