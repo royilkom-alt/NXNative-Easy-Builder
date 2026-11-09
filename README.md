@@ -40,6 +40,72 @@ Created by **iSolution**. Based on [**NXNative**][nxnative] by **seedds** and [*
 
 </div>
 
+## 📱 iPhone & iPad Compatibility
+
+![iPhone iOS 26 or later](https://img.shields.io/badge/iPhone-iOS%2026%2B-007AFF?style=for-the-badge&logo=apple&logoColor=white&labelColor=161B22)
+![iPad iPadOS 26 or later](https://img.shields.io/badge/iPad-iPadOS%2026%2B-7C3AED?style=for-the-badge&logo=apple&logoColor=white&labelColor=161B22)
+
+> [!IMPORTANT]
+> The generated IPAs require **iOS 26 or iPadOS 26 or later**. NXNative's standard hardware baseline is **iPhone with A17 Pro or newer** and **iPad with M1 or newer**. Performance still depends on the game, build, and graphics settings. [NXNative requirements](https://github.com/seedds/nxnative#requirements)
+
+**OS eligible** means the device meets the OS requirement and gameplay remains unverified in the reports below. **Experimental** means a specific game ran on a custom build or older engine version. **Windows-tested** identifies a device tested by the NXNativeWindows developer.
+
+<details>
+<summary><strong>📱 iPhone models · oldest to newest</strong></summary>
+
+| Chip | iPhone models | Compatibility |
+| :--- | :--- | :--- |
+| **A13 Bionic** | iPhone 11, 11 Pro, 11 Pro Max, SE (2nd generation) | **OS eligible** |
+| **A14 Bionic** | iPhone 12 mini, 12, 12 Pro, 12 Pro Max | **OS eligible** |
+| **A15 Bionic** | iPhone 13 mini, 13, 13 Pro, 13 Pro Max, 14, 14 Plus, SE (3rd generation) | **Experimental.** On the **13 Pro**, Super Mario 64 from *Super Mario 3D All-Stars* ran at 30 FPS for a few minutes with NX2Apple's CPU texture decoding. [Device report](https://github.com/seedds/nxnative/pull/1441) |
+| **A16 Bionic** | iPhone 14 Pro, 14 Pro Max, 15, 15 Plus | **Experimental.** *Hades* ran on the **14 Pro Max** in a custom build with ASTC texture conversion. [Device report](https://github.com/seedds/nxnative/pull/571) |
+| **A17 Pro** | iPhone 15 Pro, 15 Pro Max | **Standard baseline.** *Donkey Kong Country Returns HD* 1.1.0 ran at 60 FPS through the first levels on the **15 Pro**. [Device report](https://github.com/seedds/nxnative/issues/429) |
+| **A18** | iPhone 16, 16 Plus, 16e | **Meets standard baseline** |
+| **A18 Pro** | iPhone 16 Pro, 16 Pro Max | **Meets standard baseline** |
+| **A19** | iPhone 17, 17e | **Meets standard baseline** |
+| **A19 Pro** | iPhone Air, 17 Pro, 17 Pro Max | **Meets standard baseline.** *Super Mario Odyssey* 1.4.1 reached gameplay on the **17 Pro**. [Device report](https://github.com/seedds/nxnative/pull/544) |
+| **A20 Pro** | iPhone 18 Pro, 18 Pro Max, iPhone Duo | **Meets standard baseline** |
+
+**Below the OS requirement** · iPhone XS, XS Max, XR, earlier iPhone models, and iPhone SE (1st generation).
+
+</details>
+
+<details>
+<summary><strong>📲 iPad models · A-series and M-series</strong></summary>
+
+| Chip | iPad models | Compatibility |
+| :--- | :--- | :--- |
+| **A12 Bionic** | iPad (8th generation), iPad Air (3rd generation), iPad mini (5th generation) | **OS eligible** on iPadOS 26 |
+| **A12X Bionic** | iPad Pro 11-inch (1st generation), iPad Pro 12.9-inch (3rd generation) | **OS eligible** on iPadOS 26 |
+| **A12Z Bionic** | iPad Pro 11-inch (2nd generation), iPad Pro 12.9-inch (4th generation) | **OS eligible** |
+| **A13 Bionic** | iPad (9th generation) | **OS eligible** |
+| **A14 Bionic** | iPad (10th generation), iPad Air (4th generation) | **OS eligible** |
+| **A15 Bionic** | iPad mini (6th generation) | **Experimental.** *Zelda: Echoes of Wisdom* ran with an older engine revision. [Device report](https://github.com/seedds/nxnative/issues/1684) |
+| **A16** | iPad (A16) | **Windows-tested** on a 6 GB model. *Balatro* played, and *Tears of the Kingdom* reached gameplay and loaded saves. [Device results](https://github.com/zenvyzenshiro/NXNativeWindows#games-on-nxnative-for-windows) |
+| **A17 Pro** | iPad mini (A17 Pro) | **Game-specific test.** *Zelda: Link's Awakening* averaged 59.6 FPS over 1,500 frames in one run. [Device report](https://github.com/seedds/nxnative/pull/954) |
+| **A20 Pro** | iPad mini (A20 Pro) | **Game-specific test.** *Tears of the Kingdom* ran for about 90 minutes, mostly at 60 FPS, with a stretch at 33–38 FPS. [Device report](https://github.com/seedds/nxnative/issues/1771) |
+| **M1** | iPad Air (5th generation), iPad Pro 11-inch (3rd generation), iPad Pro 12.9-inch (5th generation) | **Standard baseline** |
+| **M2** | iPad Air 11-inch and 13-inch (M2), iPad Pro 11-inch (4th generation), iPad Pro 12.9-inch (6th generation) | **Meets standard baseline** |
+| **M3** | iPad Air 11-inch and 13-inch (M3) | **Meets standard baseline** |
+| **M4** | iPad Air 11-inch and 13-inch (M4), iPad Pro 11-inch and 13-inch (M4) | **Meets standard baseline** |
+| **M5** | iPad Pro 11-inch and 13-inch (M5) | **Meets standard baseline** |
+
+**Below the OS requirement** · iPad (7th generation) and earlier, iPad Air 2 and earlier, iPad mini 4 and earlier, and iPad Pro 9.7-inch, 10.5-inch, or 12.9-inch (1st and 2nd generation).
+
+</details>
+
+### 🐢 Where slowdowns were reported
+
+| Device | Game | Reported result |
+| :--- | :--- | :--- |
+| **iPhone 14 Pro** | *Zelda: Breath of the Wild* | A modified A16 build reached gameplay, then iOS closed it after a few minutes because it hit the app's memory limit. [Report](https://github.com/seedds/nxnative/issues/4#issuecomment-6234290185) |
+| **iPhone 15 Pro Max** | *Donkey Kong Bananza* | An experimental Switch 2 build reached gameplay at roughly **21 FPS** around half render scale. The phone then throttled. [Report](https://github.com/seedds/nxnative/pull/1073) |
+| **iPad (A16)** | *Mario vs. Donkey Kong* | The Windows-built IPA ran slowly. *Tears of the Kingdom* also had frame drops in fights, even with tuned settings. [Report](https://github.com/zenvyzenshiro/NXNativeWindows#games-on-nxnative-for-windows) |
+
+> [!NOTE]
+> NXNativeWindows can decode BC textures on the CPU when the GPU lacks hardware support. This can increase loading time and memory use. Free storage also varies by game, especially for builds with separate game data. [NXNativeWindows device requirements](https://github.com/zenvyzenshiro/NXNativeWindows#what-you-need)
+
+[Apple iOS 26 model list](https://support.apple.com/guide/iphone/iphone-models-compatible-with-ios-26-iphe3fa5df43/26.0/ios/26.0) · [Apple iOS 27 model list](https://support.apple.com/guide/iphone/iphone-models-compatible-with-ios-27-iphe3fa5df43/ios) · [Apple iPadOS 26 model list](https://support.apple.com/guide/ipad/ipad-models-compatible-with-ipados-26-ipad213a25b2/26.0/ipados/26.0) · [Apple iPadOS 27 model list](https://support.apple.com/guide/ipad/ipad-models-compatible-with-ipados-27-ipad213a25b2/ipados)
 
 ## Successfully ported to IPA
 
