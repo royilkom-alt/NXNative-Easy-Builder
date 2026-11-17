@@ -102,9 +102,13 @@ public sealed class Repository(string root, HttpClient http)
             .Where(line => !line.StartsWith('#') && line.Contains('\t'))
             .Select(line => line.Split('\t', 2))
             .ToDictionary(parts => parts[0], parts => parts[1]);
-        var files = new Dictionary<string, string> { ["spirv-cross"] = release.SpirvCross };
-        foreach (var dll in new[] { "dmsh_xlate.dll", "Ryujinx.Graphics.Shader.dll", "Ryujinx.Common.dll" })
-            files[dll] = Path.Combine(tools, "dmsh_xlate_bin", dll);
+        // Match tool_lock.py: sha16 of each bundled native executable. Setup later
+        // checks the translator's embedded source digest and the Metal compilers.
+        var files = new Dictionary<string, string>
+        {
+            ["spirv-cross"] = release.SpirvCross,
+            ["dmsh_xlate"] = Path.Combine(tools, "dmsh_xlate_bin", "dmsh_xlate")
+        };
         foreach (var (name, path) in files)
         {
             if (!File.Exists(path) || !expected.TryGetValue(name, out var sha)) return false;

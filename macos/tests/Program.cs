@@ -26,13 +26,34 @@ try
     File.WriteAllText(script, "# Test fixture");
     File.WriteAllText(Path.Combine(tools, "own_compilers.py"), "XCODE_VERSION = '27.2'\n");
     var locks = new List<string>();
-    foreach (var name in new[] { "spirv-cross", "dmsh_xlate.dll", "Ryujinx.Graphics.Shader.dll", "Ryujinx.Common.dll" })
+    foreach (var name in new[] { "spirv-cross", "dmsh_xlate" })
     {
         var file = Path.Combine(tools, name == "spirv-cross" ? "spirv_cross_bin" : "dmsh_xlate_bin", name);
         File.WriteAllText(file, name);
         locks.Add(name + "\t" + Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(file)))[..16].ToLowerInvariant());
     }
+    locks.Insert(0, "# Translation chain tool fingerprints");
+    locks.Add("xlate_source\te2d3359d2a182f50");
+    locks.Add("metal_macosx\tApple metal version fixture");
+    locks.Add("metal_iphoneos\tApple metal version fixture");
     File.WriteAllLines(Path.Combine(tools, "dmsh_chain.lock"), locks);
+
+    var fixtureRelease = new Release(sha, source, "27.2");
+    var translator = Path.Combine(tools, "dmsh_xlate_bin", "dmsh_xlate");
+    var translatorBytes = File.ReadAllBytes(translator);
+    Assert(Repository.FingerprintsMatch(fixtureRelease), "Native translator lock without managed DLLs");
+    File.AppendAllText(translator, "bad");
+    Assert(!Repository.FingerprintsMatch(fixtureRelease), "Detect wrong native translator bytes");
+    File.Delete(translator);
+    Assert(!Repository.FingerprintsMatch(fixtureRelease), "Reject missing native translator");
+    File.WriteAllBytes(translator, translatorBytes);
+    var lockPath = Path.Combine(tools, "dmsh_chain.lock");
+    File.WriteAllLines(lockPath, locks.Where(line => !line.StartsWith("dmsh_xlate\t")));
+    Assert(!Repository.FingerprintsMatch(fixtureRelease), "Reject missing native translator fingerprint");
+    File.WriteAllLines(lockPath, locks.Select(line => line.StartsWith("dmsh_xlate\t") ? "dmsh_xlate\tmissing" : line));
+    Assert(!Repository.FingerprintsMatch(fixtureRelease), "Reject invalid native translator fingerprint");
+    File.WriteAllLines(lockPath, locks);
+
     var archive = Path.Combine(temp, "repo.tar.gz");
     await using (var file = File.Create(archive))
     await using (var gzip = new GZipStream(file, CompressionLevel.Fastest))
@@ -52,6 +73,9 @@ try
     Assert(!Repository.FingerprintsMatch(release), "Detect wrong SPIRV-Cross bytes");
     Assert(await repo.StageAsync(latest, _ => { }, _ => { }, default) == release && mock.Downloads == 2 && Repository.FingerprintsMatch(release),
         "Repair a corrupted tool");
+    File.AppendAllText(Path.Combine(release.ShaderTools, "dmsh_xlate_bin", "dmsh_xlate"), "bad");
+    Assert(await repo.StageAsync(latest, _ => { }, _ => { }, default) == release && mock.Downloads == 3 && Repository.FingerprintsMatch(release),
+        "Repair a corrupted native translator");
     await Throws<IOException>(() => repo.StageAsync(new CommitInfo(new string('b', 40), "bad archive"), _ => { }, _ => { }, default));
     Assert(repo.Active() == release && !Directory.EnumerateDirectories(Path.GetDirectoryName(release.Folder)!, ".download-*").Any(),
         "Failed candidate leaves active commit and no staging files");
